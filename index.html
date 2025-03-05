@@ -1,0 +1,26 @@
+<script src="https://cdn.auth0.com/js/auth0/9.16/auth0.min.js"></script>
+<script>
+    const auth0 = new auth0.WebAuth({
+        domain: "DOMAIN_KAMU",
+        clientID: "CLIENT_ID_KAMU",
+        redirectUri: window.location.href,
+        responseType: "token id_token",
+        scope: "openid profile email"
+    });
+
+    function login() {
+        auth0.authorize();
+    }
+
+    function handleAuth() {
+        auth0.parseHash((err, authResult) => {
+            if (authResult && authResult.idToken) {
+                document.getElementById("login").style.display = "none";
+                document.getElementById("dashboard").style.display = "block";
+                document.getElementById("saldo").innerText = "100"; // Saldo default
+            }
+        });
+    }
+
+    window.onload = handleAuth;
+      </script>
